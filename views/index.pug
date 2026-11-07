@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to my server for Assignment 10
+  button(type="button", class="btn btn-secondary", onclick="reduce()") Sample Button
+  div#use take some away
+
+  script.
+    let current=11;
+    let quantity=2;
+    function reduce(){
+      current = current-quantity;
+      if(current<0){
+        current=0;
+      }
+      document.getElementById("use").innerHTML= `Reduced by ${quantity} to ${current}`;
+    }
+    a(href="http://localhost:3000/restaurant")Link to restaurant
+
+
