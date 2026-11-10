@@ -9,6 +9,9 @@ var usersRouter = require("./routes/users");
 var restaurantRouter = require("./routes/restaurant");
 var gridRouter = require("./routes/grid");
 var pickRouter = require("./routes/pick");
+var resourceRouter = require("./routes/resource");
+var mongoose = require("mongoose");
+require("dotenv").config();
 
 var app = express();
 
@@ -21,6 +24,75 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/resource", resourceRouter);
+
+const connectionString = process.env.MONGO_CON;
+mongoose.connect(connectionString);
+//Get the default connection
+var db = mongoose.connection;
+//Bind connection to error event
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+db.once("open", function () {
+  console.log("Connection to DB succeeded");
+});
+
+var Restaurant = require("./models/restaurant");
+// We can seed the collection if needed on server start
+async function recreateDB() {
+  // Delete everything
+  await Restaurant.deleteMany();
+  let restaurant1 = new Restaurant({
+    name: "Olive Garden",
+    capacity: 100,
+    city: "Maryville",
+    cuisine: "Italian",
+  });
+
+  let restaurant2 = new Restaurant({
+    name: "Sushi House",
+    capacity: 50,
+    city: "Kansas City",
+    cuisine: "Japanese",
+  });
+
+  let restaurant3 = new Restaurant({
+    name: "Taco Bell",
+    capacity: 75,
+    city: "Maryville",
+    cuisine: "Mexican",
+  });
+
+  restaurant1
+    .save()
+    .then((doc) => {
+      console.log("First restaurant saved");
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  restaurant2
+    .save()
+    .then((doc) => {
+      console.log("Second restaurant saved");
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  restaurant3
+    .save()
+    .then((doc) => {
+      console.log("Third restaurant saved");
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
+let reseed = true;
+if (reseed) {
+  recreateDB();
+}
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
