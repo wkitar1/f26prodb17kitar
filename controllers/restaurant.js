@@ -1,7 +1,13 @@
 var Restaurant = require("../models/restaurant");
 // List of all Restaurants
-exports.restaurant_list = function (req, res) {
-  res.send("NOT IMPLEMENTED: Restaurant list");
+exports.restaurant_list = async function (req, res) {
+  try {
+    theRestaurants = await Restaurant.find();
+    res.send(theRestaurants);
+  } catch (err) {
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+  }
 };
 // for a specific Restaurant.
 exports.restaurant_detail = function (req, res) {
