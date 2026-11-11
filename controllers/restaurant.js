@@ -29,9 +29,22 @@ exports.restaurant_detail = function (req, res) {
   res.send("NOT IMPLEMENTED: Restaurant detail: " + req.params.id);
 };
 // Handle Restaurant create on POST.
-exports.restaurant_create_post = function (req, res) {
-  res.send("NOT IMPLEMENTED: Restaurant create POST");
+exports.restaurant_create_post = async function (req, res) {
+  console.log(req.body);
+  let document = new Restaurant();
+  document.name = req.body.name;
+  document.capacity = req.body.capacity;
+  document.cuisine = req.body.cuisine;
+  document.city = req.body.city;
+  try {
+    let result = await document.save();
+    res.send(result);
+  } catch (err) {
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+  }
 };
+
 // Handle Restaurant delete from on DELETE.
 exports.restaurant_delete = function (req, res) {
   res.send("NOT IMPLEMENTED: Restaurant delete DELETE " + req.params.id);
