@@ -2,27 +2,6 @@ extends layout
 
 block content
   h1= title
-  -
-    let results =[
-      {
-        name: "Bella Italia",
-        cuisine: "Italian",
-        capacity: 85,
-        city: "Chicago"
-      },
-      {
-        name: "Raku",
-        cuisine: "Japanese",
-        capacity: 40,
-        city: "Maryville"
-      },
-      {
-        name: "Le Petit Cafe",
-        cuisine: "French",
-        capacity: 60,
-        city: "Kansas City"
-      }
-    ]
   div.container-fluid
     div.row
       each restaurant, index in results
