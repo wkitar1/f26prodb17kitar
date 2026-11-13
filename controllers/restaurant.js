@@ -56,7 +56,22 @@ exports.restaurant_create_post = async function (req, res) {
 exports.restaurant_delete = function (req, res) {
   res.send("NOT IMPLEMENTED: Restaurant delete DELETE " + req.params.id);
 };
-// Handle Restaurant update form on PUT.
-exports.restaurant_update_put = function (req, res) {
-  res.send("NOT IMPLEMENTED: Restaurant update PUT" + req.params.id);
+// Handle Restaurant update on PUT.
+exports.restaurant_update_put = async function (req, res) {
+  console.log(
+    `update on id ${req.params.id} with body ${JSON.stringify(req.body)}`,
+  );
+  try {
+    let toUpdate = await Restaurant.findById(req.params.id);
+    if (req.body.name) toUpdate.name = req.body.name;
+    if (req.body.capacity) toUpdate.capacity = req.body.capacity;
+    if (req.body.cuisine) toUpdate.cuisine = req.body.cuisine;
+    if (req.body.city) toUpdate.city = req.body.city;
+    let result = await toUpdate.save();
+    console.log("Success " + result);
+    res.send(result);
+  } catch (err) {
+    res.status(500);
+    res.send(`{"error": "${err}: Update for id ${req.params.id} failed"}`);
+  }
 };
