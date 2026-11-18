@@ -23,8 +23,22 @@ exports.restaurant_view_all_Page = async function (req, res) {
     res.send(`{"error": ${err}}`);
   }
 };
+// Handle a show one view with id specified by query
+exports.restaurant_view_one_Page = async function (req, res) {
+  console.log("single view for id " + req.query.id);
+  try {
+    result = await Restaurant.findById(req.query.id);
+    res.render("restaurantdetail", {
+      title: "Rrestaurant Detail",
+      toShow: result,
+    });
+  } catch (err) {
+    res.status(500);
+    res.send(`{'error': '${err}'}`);
+  }
+};
 
-// for a specific Costume.
+// for a specific restaurant.
 exports.restaurant_detail = async function (req, res) {
   console.log("detail" + req.params.id);
   try {
@@ -53,7 +67,6 @@ exports.restaurant_create_post = async function (req, res) {
 };
 
 // Handle Restaurant delete from on DELETE.
-// Handle Costume delete on DELETE.
 exports.restaurant_delete = async function (req, res) {
   console.log("delete " + req.params.id);
   try {

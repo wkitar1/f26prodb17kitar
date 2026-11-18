@@ -5,3 +5,6 @@ var router = express.Router();
 /* GET home page. */
 router.get("/", restaurant_controlers.restaurant_view_all_Page);
 module.exports = router;
+
+/* GET detail restaurant page */
+router.get("/detail", restaurant_controlers.restaurant_view_one_Page);
