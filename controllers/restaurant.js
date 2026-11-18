@@ -53,8 +53,17 @@ exports.restaurant_create_post = async function (req, res) {
 };
 
 // Handle Restaurant delete from on DELETE.
-exports.restaurant_delete = function (req, res) {
-  res.send("NOT IMPLEMENTED: Restaurant delete DELETE " + req.params.id);
+// Handle Costume delete on DELETE.
+exports.restaurant_delete = async function (req, res) {
+  console.log("delete " + req.params.id);
+  try {
+    result = await Restaurant.findByIdAndDelete(req.params.id);
+    console.log("Removed " + result);
+    res.send(result);
+  } catch (err) {
+    res.status(500);
+    res.send(`{"error": Error deleting ${err}}`);
+  }
 };
 // Handle Restaurant update on PUT.
 exports.restaurant_update_put = async function (req, res) {
