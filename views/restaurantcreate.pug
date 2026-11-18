@@ -1,0 +1,35 @@
+extends layout
+
+block content
+  h1= title
+  form(id='RestaurantForm', action="/resource/restaurants", method="POST")
+    div.form-group
+      label.restaurantAttr(for='name') Restaurant name
+      input#name(type='text', name='name')
+    div.form-group
+      label.restaurantAttr(for='cuisine') Cuisine
+      input#cuisine(type='text', name='cuisine')
+    div.form-group
+      label.restaurantAttr(for='capacity') Capacity
+      input#capacity(type='number', name='capacity')
+    div.form-group
+      label.restaurantAttr(for='city') City
+      input#city(type='text', name='city')
+    input(type="submit")
+  script.
+    document.forms['RestaurantForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+      fetch(event.target.action, {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+      }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Save succeeded")
+        // TODO handle body
+      }).catch((error) => {
+        // TODO handle error
+        alert("Save failed " + error)
+      });
+    });

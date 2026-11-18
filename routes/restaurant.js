@@ -8,3 +8,6 @@ module.exports = router;
 
 /* GET detail restaurant page */
 router.get("/detail", restaurant_controlers.restaurant_view_one_Page);
+
+/* GET create restaurant page */
+router.get("/create", restaurant_controlers.restaurant_create_Page);
