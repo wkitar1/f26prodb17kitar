@@ -1,25 +1,28 @@
 extends layout
 
 block content
-  h1= title
-  - let restaurantid = toShow._id
-  - let name = toShow.name
-  - let cuisine = toShow.cuisine
-  - let capacity = toShow.capacity
-  - let city = toShow.city
+    h1= title
+    if (toShow == null)
+        h2 No restaurant with that id found 
+    else
+        - let restaurantid = toShow._id
+        - let name = toShow.name
+        - let cuisine = toShow.cuisine
+        - let capacity = toShow.capacity
+        - let city = toShow.city
 
-  div.row
-    div(class='restaurantAttr mr-3') Restaurant ID is:
-    div #{restaurantid}
-  div.row
-    div(class='restaurantAttr mr-3') Name is:
-    div #{name}
-  div.row
-    div(class='restaurantAttr mr-3') Cuisine is:
-    div #{cuisine}
-  div.row
-    div(class='restaurantAttr mr-3') Capacity is:
-    div #{capacity}
-  div.row
-    div(class='restaurantAttr mr-3') City is:
-    div #{city}
+        div.row
+            div(class='restaurantAttr mr-3') Restaurant ID is:
+            div #{restaurantid}
+        div.row
+            div(class='restaurantAttr mr-3') Name is:
+            div #{name}
+        div.row
+            div(class='restaurantAttr mr-3') Cuisine is:
+            div #{cuisine}
+        div.row
+            div(class='restaurantAttr mr-3') Capacity is:
+            div #{capacity}
+        div.row
+            div(class='restaurantAttr mr-3') City is:
+            div #{city}

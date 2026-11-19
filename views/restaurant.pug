@@ -2,18 +2,16 @@ extends layout
 
 block content
   h1= title
+  a(href='/restaurant/create' class='btn btn-success m-2') Add new restaurant
   div.container-fluid
     div.row
-      each restaurant, index in results
-        div.col-sm-2(onclick=`buy(${index + 1})`)
-          h3 #{restaurant.name}
-          p Cuisine: #{restaurant.cuisine}
-          p Capacity: #{restaurant.capacity}
-          p City: #{restaurant.city}
-  script.
-    function buy(index) {
-      alert("You purchased item " + index + ".");
-    }
-
-  
-
+      each restaurant in results
+        div.col-sm-3
+          div.card.m-2
+            div.card-body
+              h4.card-title #{restaurant.name}
+              p.card-text Cuisine: #{restaurant.cuisine}
+              p.card-text City: #{restaurant.city}
+              a(href='/restaurant/detail?id=' + restaurant._id, class='btn btn-primary btn-sm m-1') Inspect
+              a(href='/restaurant/update?id=' + restaurant._id, class='btn btn-warning btn-sm m-1') Update
+              a(href='/restaurant/delete?id=' + restaurant._id, class='btn btn-danger btn-sm m-1') Delete

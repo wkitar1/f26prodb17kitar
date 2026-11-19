@@ -33,8 +33,10 @@ exports.restaurant_view_one_Page = async function (req, res) {
       toShow: result,
     });
   } catch (err) {
-    res.status(500);
-    res.send(`{'error': '${err}'}`);
+    res.render("restaurantdetail", {
+      title: "Restaurant Detail",
+      toShow: null,
+    });
   }
 };
 
@@ -122,8 +124,10 @@ exports.restaurant_update_Page = async function (req, res) {
       toShow: result,
     });
   } catch (err) {
-    res.status(500);
-    res.send(`{'error': '${err}'}`);
+    res.render("restaurantupdate", {
+      title: "Restaurant Update",
+      toShow: null,
+    });
   }
 };
 
